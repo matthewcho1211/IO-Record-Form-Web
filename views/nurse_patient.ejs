@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="../assets/style.css" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  </head>
+  <body>
+    <div class="container table-responsive">
+      <table class="table table-striped table-hover">
+        <thead>
+          <tr>
+            <th>病例號</th>
+            <th>床號</th>
+            <th>診斷</th>
+            <th>名字</th>
+            <th>NPO</th>
+            <th>過敏</th>
+          </tr>
+        </thead>
+        <tbody id="data-table"></tbody>
+      </table>
+      <div
+        class="container mt-4 d-flex align-items-center justify-content-center"
+      >
+        <button type="button" class="btn btn-success" id="add-data-button">
+          新增
+        </button>
+      </div>
+
+      <!-- 模态框 -->
+      <div id="modal" class="modal">
+        <div class="modal-content">
+          <span class="close">&times;</span>
+          <form id="add-data-form">
+            <div class="mb-3">
+              <label for="category" class="form-label">病例號</label>
+              <input type="text" class="form-control" id="category" required />
+            </div>
+            <button type="submit" class="btn btn-primary">確定</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+
+<script>
+
+  let ip = '<%= ip %>';
+
+  $(document).ready(function () {
+    // 使用AJAX發送GET請求到API端點
+    $.ajax({
+      type: "GET",
+      url: `http://${ip}/api/patient`, // 指定API的URL
+      dataType: "json", // 預期的響應數據類型為JSON
+      success: function (data) {
+        // 成功接收到數據後的處理
+        displayDataInTable(data);
+      },
+      error: function () {
+        // 請求失敗時的處理
+        alert("無法獲取數據。");
+      },
+    });
+
+    function displayDataInTable(data) {
+      let table = document.getElementById("data-table");
+
+      // 清空表格內容
+      table.innerHTML = "";
+
+      // 迴圈遍歷資料並將其插入表格中
+      for (let i = 0; i < data.length; i++) {
+        let rowData = data[i];
+
+        // 插入資料到表格行中
+        let row = table.insertRow(i);
+
+        // 創建表格列
+        let caseNumberCell = row.insertCell(0);
+        let bedNumberCell = row.insertCell(1);
+        let diagnosisCell = row.insertCell(2);
+        let nameCell = row.insertCell(3);
+        let npoCell = row.insertCell(4);
+        let allergyCell = row.insertCell(5);
+
+        // 將資料插入到表格列中
+        caseNumberCell.innerHTML = rowData[0]; // 病例號
+        bedNumberCell.innerHTML = rowData[1]; // 床號
+        diagnosisCell.innerHTML = rowData[2]; // 診斷
+        nameCell.innerHTML = rowData[3]; // 名字
+        npoCell.innerHTML = rowData[4] === 1 ? "是" : "否"; // NPO
+        allergyCell.innerHTML = rowData[5] === 1 ? "是" : "否"; // 過敏
+      }
+    }
+  });
+  document.addEventListener("DOMContentLoaded", function () {
+    // 获取模态框和关闭按钮
+    const modal = document.getElementById("modal");
+    const closeBtn = document.getElementsByClassName("close")[0];
+
+    // 获取新增数据按钮
+    const addDataButton = document.getElementById("add-data-button");
+
+    // 打开模态框
+    addDataButton.addEventListener("click", function () {
+      modal.style.display = "block";
+    });
+
+    // 关闭模态框
+    closeBtn.addEventListener("click", function () {
+      modal.style.display = "none";
+    });
+
+    // 当用户点击模态框外部区域时，关闭模态框
+    window.addEventListener("click", function (event) {
+      if (event.target === modal) {
+        modal.style.display = "none";
+      }
+    });
+  });
+</script>
