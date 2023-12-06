@@ -25,7 +25,7 @@ router.post("/login", encoder, async function (req, res) {
 
     await axios.get(`http://${ip}/api/nurse/${account}/${password}`)
         .then(res => {
-            if (res.data = "Account not found") {
+            if (res.data == "Account not found") {
                 login = false;
             } else {
                 name = res.data[0][0];
