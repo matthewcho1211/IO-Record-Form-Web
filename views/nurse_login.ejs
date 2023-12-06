@@ -21,10 +21,20 @@
   </head>
   <body>
     <div class="container mt-5">
-      <h2>病人登入</h2>
-      <form id="login-form">
+      <h2>護理師登入</h2>
+      <form id="login-form" action="" method="post">
         <div class="form-group col-md-6">
-          <label for="password">驗證碼：</label>
+          <label for="account">帳號</label>
+          <input
+            type="account"
+            class="form-control"
+            id="account"
+            name="account"
+            required
+          />
+        </div>
+        <div class="form-group col-md-6">
+          <label for="password">密碼</label>
           <input
             type="password"
             class="form-control"
@@ -38,6 +48,3 @@
     </div>
   </body>
 </html>
-<script>
-  let ip = '<%= ip %>';
-</script>
