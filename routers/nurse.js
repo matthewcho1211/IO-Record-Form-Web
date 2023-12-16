@@ -15,7 +15,7 @@ let name;
 let employee_id;
 
 router.get("/login", function (req, res) {
-    res.render('nurse_login',)
+    res.render('nurse_login')
 });
 
 router.post("/login", encoder, async function (req, res) {
@@ -160,6 +160,10 @@ router.post("/select/output/vomit", encoder, function (req, res) {
         res.redirect('/nurse/select/output/vomit')
         res.end()
     }
+});
+
+router.get("/select/qrocde", function (req, res) {
+    res.render('nurse_qrcode')
 });
 
 module.exports = router;

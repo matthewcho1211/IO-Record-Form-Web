@@ -4,10 +4,46 @@ const bodyParser = require("body-parser");
 const encoder = bodyParser.urlencoded();
 const fs = require('fs');
 const ini = require('ini');
+const axios = require('axios');
 
 const iniData = fs.readFileSync('config.ini', 'utf-8');
 const parsedIni = ini.parse(iniData);
 const ip = parsedIni.IP.SERVER_IP
+
+let recordId;
+
+// verticattion
+router.get("/vertification/:record_id", function (req, res) {
+    recordId = req.params.record_id;
+    res.redirect('/patient/vertification');
+})
+
+router.get("/vertification", function (req, res) {
+    res.render('patient_login')
+})
+
+router.post("/vertification", encoder, async function (req, res) {
+    let verticattionNumber = req.body.password;
+    let login;
+
+    await axios.get(`http://${ip}/api/vertification/12345678/${verticattionNumber}`)
+        .then(res => {
+            if (res.data == "Correct") {
+                login = true;
+            } else {
+                login = false;
+            }
+        })
+        .catch(error => {
+            console.log(error);
+        });
+
+    if (login == true) {
+        res.redirect('/patient/select');
+    } else {
+        res.redirect('/patient/vertification');
+    }
+})
 
 // select
 router.get("/select", function (req, res) {
