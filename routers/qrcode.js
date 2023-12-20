@@ -1,9 +1,14 @@
 const express = require('express');
-const QRCode = require('qrcode');
-const app = express();
+const router = express.Router();
+const fs = require('fs');
+const ini = require('ini');
+const qrcode = require('qrcode');
+
+const iniData = fs.readFileSync('config.ini', 'utf-8');
+const parsedIni = ini.parse(iniData);
+const ip = parsedIni.IP.WEBSITE_IP
 
 const options = {
-    // 其他选项可以在官方文档中找到：https://www.npmjs.com/package/qrcode#options
     errorCorrectionLevel: 'H',
     type: 'png',
     rendererOpts: {
@@ -11,18 +16,15 @@ const options = {
     },
 };
 
-app.get('/qrcode', async (req, res) => {
+router.get('/:record_id', async (req, res) => {
+    const recordId = req.params.record_id;
     try {
-        // 要生成 QR 码的文本数据
-        const data = 'https://ithelp.ithome.com.tw/articles/10298816';
-
-        // 生成 QR 码的数据 URL
-        const qrCodeDataURL = await QRCode.toDataURL(data, options);
-
-        // 将 QR 码的数据 URL 嵌入到 HTML 页面
-        const html = `<html><body><img src="${qrCodeDataURL}" alt="QR Code"></body></html>`;
-
-        // 将 HTML 发送给客户端
+        // target url
+        const url = `https://${ip}/vertification/${recordId}`;
+        // generate url resource
+        const qrcodeDataURL = await qrcode.toDataURL(url, options);
+        // set img in html
+        const html = `<html><body><img src="${qrcodeDataURL}" alt="QR Code"></body></html>`;
         res.send(html);
     } catch (error) {
         console.error(error);
@@ -30,4 +32,4 @@ app.get('/qrcode', async (req, res) => {
     }
 });
 
-app.listen(3000);
+module.exports = router;
