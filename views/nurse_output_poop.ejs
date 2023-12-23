@@ -22,7 +22,9 @@
     <nav class="navbar navbar-light bg-light">
       <div class="container">
         <form action="" method="post">
-          <button name = "kind" value = "select" class="navbar-brand">回首頁</button>
+          <button name="kind" value="select" class="navbar-brand">
+            回首頁
+          </button>
         </form>
       </div>
     </nav>
@@ -33,9 +35,30 @@
       <!-- 选择固体或液体 -->
       <div class="btn-group" role="group">
         <form action="" method="post">
-          <button name="kind" value="poop" class="btn btn-primary" id="solid-link">便</button>
-          <button name="kind" value="pee" class="btn btn-outline-primary" id="liquid-link">尿</button>
-          <button name="kind" value="vomit" class="btn btn-outline-primary" id="vomit-link">嘔吐</button>
+          <button
+            name="kind"
+            value="poop"
+            class="btn btn-primary"
+            id="solid-link"
+          >
+            便
+          </button>
+          <button
+            name="kind"
+            value="pee"
+            class="btn btn-outline-primary"
+            id="liquid-link"
+          >
+            尿
+          </button>
+          <button
+            name="kind"
+            value="vomit"
+            class="btn btn-outline-primary"
+            id="vomit-link"
+          >
+            嘔吐
+          </button>
         </form>
       </div>
 
@@ -136,8 +159,7 @@
   </body>
 </html>
 <script>
-
-  let ip = '<%= ip %>';
+  let ip = "<%= ip %>";
 
   $(document).ready(function () {
     $("#confirm-button").click(function () {
@@ -152,7 +174,9 @@
     $("#data-table").on("click", ".delete-btn", function () {
       let output_poop_id = $(this).data("id");
       let recordId = $(this).data("record-id");
-      deleteInput(output_poop_id, recordId);
+      if (confirm("確定要刪除這筆資料嗎？")) {
+        deleteInput(output_poop_id, recordId);
+      }
     });
     // 使用 AJAX 获取数据
     function displayData() {
