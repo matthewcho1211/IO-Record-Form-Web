@@ -46,7 +46,7 @@ router.post("/login", encoder, async function (req, res) {
 });
 
 router.get("/patient", function (req, res) {
-  res.render("nurse_patient", { ip: ip });
+  res.render("nurse_patient", { ip: ip, name: name, employee_id: employee_id });
 });
 
 router.get("/select", function (req, res) {
