@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const app = express();
 const bodyParser = require("body-parser");
 const encoder = bodyParser.urlencoded();
 const fs = require("fs");
@@ -10,9 +11,15 @@ const iniData = fs.readFileSync("config.ini", "utf-8");
 const parsedIni = ini.parse(iniData);
 const ip = parsedIni.IP.SERVER_IP;
 
+// 配置 bodyParser 以解析 urlencoded 和 json 數據
+app.use(bodyParser.json());
+
 // define nurse information
 let name;
 let employee_id;
+// define patient info
+let record_id;
+let patient_name;
 
 router.get("/login", function (req, res) {
   res.render("nurse_login");
@@ -50,7 +57,10 @@ router.get("/patient", function (req, res) {
 });
 
 router.get("/select", function (req, res) {
-  res.render("select_page");
+  res.render("select_page", {
+    record_id: record_id,
+    patient_name: patient_name,
+  });
 });
 
 router.post("/select", encoder, function (req, res) {
@@ -64,8 +74,19 @@ router.post("/select", encoder, function (req, res) {
   }
 });
 
+router.post("/patient", encoder, function (req, res) {
+  record_id = req.body.record_id;
+  patient_name = req.body.patient_name;
+  console.log(record_id, patient_name);
+  res.redirect("/nurse/select");
+});
+
 router.get("/select/input/solid", function (req, res) {
-  res.render("nurse_input_solid", { ip: ip });
+  res.render("nurse_input_solid", {
+    ip: ip,
+    record_id: record_id,
+    patient_name: patient_name,
+  });
 });
 
 router.post("/select/input/solid", encoder, function (req, res) {
@@ -83,7 +104,11 @@ router.post("/select/input/solid", encoder, function (req, res) {
 });
 
 router.get("/select/input/liquid", function (req, res) {
-  res.render("nurse_input_liquid", { ip: ip });
+  res.render("nurse_input_liquid", {
+    ip: ip,
+    record_id: record_id,
+    patient_name: patient_name,
+  });
 });
 
 router.post("/select/input/liquid", encoder, function (req, res) {
@@ -101,7 +126,11 @@ router.post("/select/input/liquid", encoder, function (req, res) {
 });
 
 router.get("/select/output/poop", function (req, res) {
-  res.render("nurse_output_poop", { ip: ip });
+  res.render("nurse_output_poop", {
+    ip: ip,
+    record_id: record_id,
+    patient_name: patient_name,
+  });
 });
 
 router.post("/select/output/poop", encoder, function (req, res) {
@@ -122,7 +151,11 @@ router.post("/select/output/poop", encoder, function (req, res) {
 });
 
 router.get("/select/output/pee", function (req, res) {
-  res.render("nurse_output_pee", { ip: ip });
+  res.render("nurse_output_pee", {
+    ip: ip,
+    record_id: record_id,
+    patient_name: patient_name,
+  });
 });
 
 router.post("/select/output/pee", encoder, function (req, res) {
@@ -143,7 +176,11 @@ router.post("/select/output/pee", encoder, function (req, res) {
 });
 
 router.get("/select/output/vomit", function (req, res) {
-  res.render("nurse_output_vomit", { ip: ip });
+  res.render("nurse_output_vomit", {
+    ip: ip,
+    record_id: record_id,
+    patient_name: patient_name,
+  });
 });
 
 router.post("/select/output/vomit", encoder, function (req, res) {

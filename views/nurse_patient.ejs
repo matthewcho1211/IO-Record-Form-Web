@@ -81,33 +81,54 @@
 
     function displayDataInTable(data) {
       let table = document.getElementById("data-table");
-
-      // 清空表格內容
       table.innerHTML = "";
 
-      // 迴圈遍歷資料並將其插入表格中
-      for (let i = 0; i < data.length; i++) {
-        let rowData = data[i];
-
-        // 插入資料到表格行中
+      data.forEach((rowData, i) => {
         let row = table.insertRow(i);
-
-        // 創建表格列
         let caseNumberCell = row.insertCell(0);
         let bedNumberCell = row.insertCell(1);
         let diagnosisCell = row.insertCell(2);
         let nameCell = row.insertCell(3);
         let npoCell = row.insertCell(4);
         let allergyCell = row.insertCell(5);
+        let actionCell = row.insertCell(6); // 新增的列
 
-        // 將資料插入到表格列中
-        caseNumberCell.innerHTML = rowData[0]; // 病例號
-        bedNumberCell.innerHTML = rowData[1]; // 床號
-        diagnosisCell.innerHTML = rowData[2]; // 診斷
-        nameCell.innerHTML = rowData[3]; // 名字
-        npoCell.innerHTML = rowData[4] === 1 ? "是" : "否"; // NPO
-        allergyCell.innerHTML = rowData[5] === 1 ? "是" : "否"; // 過敏
-      }
+        caseNumberCell.innerHTML = rowData[0];
+        bedNumberCell.innerHTML = rowData[1];
+        diagnosisCell.innerHTML = rowData[2];
+        nameCell.innerHTML = rowData[3];
+        npoCell.innerHTML = rowData[4] === 1 ? "是" : "否";
+        allergyCell.innerHTML = rowData[5] === 1 ? "是" : "否";
+
+        // 添加按鈕到新列
+        let btn = document.createElement("button");
+        btn.innerHTML = "查詢";
+        btn.className = "btn btn-primary";
+        btn.onclick = function () {
+          submitPatientData(rowData[0], rowData[3]);
+        };
+        actionCell.appendChild(btn);
+      });
+    }
+
+    function submitPatientData(record_id, patient_name) {
+      $.ajax({
+        type: "POST",
+        url: "http://localhost:3000/nurse/patient", // 調整後端API的URL
+        contentType: "application/json",
+        data: JSON.stringify({
+          record_id: record_id,
+          patient_name: patient_name,
+        }),
+        success: function (response) {
+          console.log(record_id, patient_name);
+          window.location.href = "/nurse/select"; // 直接使用已知的URL进行重定向
+        },
+
+        error: function () {
+          alert("數據提交失敗。");
+        },
+      });
     }
   });
   document.addEventListener("DOMContentLoaded", function () {

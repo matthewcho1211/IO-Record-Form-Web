@@ -31,6 +31,7 @@
 
     <div class="container mt-4">
       <h2>輸入數據</h2>
+      <h3>病人名稱: <%= patient_name %></h3>
 
       <!-- 选择固体或液体 -->
       <div class="btn-group" role="group">
@@ -65,7 +66,12 @@
       <!-- 选择日期 -->
       <div class="mb-3 col-md-6">
         <label for="record_id" class="form-label">輸入病歷號:</label>
-        <input type="text" class="form-control" id="record_id1" />
+        <input
+          type="text"
+          class="form-control"
+          id="record_id1"
+          value="<%= record_id %>"
+        />
       </div>
       <div class="mb-3 col-md-6">
         <label for="date" class="form-label">選擇：</label>
@@ -110,7 +116,13 @@
         <form id="add-data-form">
           <div class="mb-3">
             <label for="record_id" class="form-label">病歷號：</label>
-            <input type="text" class="form-control" id="record_id" required />
+            <input
+              type="text"
+              class="form-control"
+              id="record_id"
+              value="<%= record_id %>"
+              required
+            />
           </div>
           <div class="mb-3">
             <label for="date" class="form-label">日期：</label>

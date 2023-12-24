@@ -23,6 +23,8 @@
       class="container mt-4 d-flex align-items-center justify-content-center"
     >
       <div class="mt-4">
+        <h3>病人名稱: <%= patient_name %></h3>
+        <h3>病歷號: <%= record_id %></h3>
         <h2 class="text-center mb-4">選擇操作</h2>
         <form action="" method="post">
           <button
@@ -30,14 +32,16 @@
             value="input"
             name="kind"
             class="action-link btn btn-outline-primary btn-lg mb-3"
-          >Input
+          >
+            Input
           </button>
           <button
             type="submit"
             value="output"
             name="kind"
             class="action-link btn btn-outline-primary btn-lg mb-3"
-          >Output
+          >
+            Output
           </button>
         </form>
       </div>
