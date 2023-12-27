@@ -10,6 +10,7 @@ const axios = require("axios");
 const iniData = fs.readFileSync("config.ini", "utf-8");
 const parsedIni = ini.parse(iniData);
 const ip = parsedIni.IP.SERVER_IP;
+const websiteIp = parsedIni.IP.WEBSITE_IP
 
 // 配置 bodyParser 以解析 urlencoded 和 json 數據
 app.use(bodyParser.json());
@@ -53,13 +54,13 @@ router.post("/login", encoder, async function (req, res) {
 });
 
 router.get("/patient", function (req, res) {
-  res.render("nurse_patient", { ip: ip, name: name, employee_id: employee_id });
+  res.render("nurse_patient", { ip: ip, name: name, employee_id: employee_id , websiteIp: websiteIp});
 });
 
 router.get("/select", function (req, res) {
   res.render("select_page", {
     record_id: record_id,
-    patient_name: patient_name,
+    patient_name: patient_name
   });
 });
 
@@ -201,7 +202,7 @@ router.post("/select/output/vomit", encoder, function (req, res) {
 });
 
 router.get("/patient/qrcode", function (req, res) {
-  res.render("nurse_qrcode", { ip: ip });
+  res.render("nurse_qrcode", { websiteIp: websiteIp });
 });
 
 module.exports = router;

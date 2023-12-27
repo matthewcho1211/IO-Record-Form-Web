@@ -39,7 +39,7 @@
         class="container mt-4 d-flex align-items-center justify-content-center"
       >
         <button type="button" class="btn btn-success" id="add-data-button">
-          新增
+          查詢
         </button>
       </div>
 
@@ -62,6 +62,7 @@
 
 <script>
   let ip = "<%= ip %>";
+  let websiteIp = "<%= websiteIp %>"
 
   $(document).ready(function () {
     // 使用AJAX發送GET請求到API端點
@@ -114,7 +115,7 @@
     function submitPatientData(record_id, patient_name) {
       $.ajax({
         type: "POST",
-        url: "http://localhost:3000/nurse/patient", // 調整後端API的URL
+        url: `http://${websiteIp}/nurse/patient`, // 調整後端API的URL
         contentType: "application/json",
         data: JSON.stringify({
           record_id: record_id,
