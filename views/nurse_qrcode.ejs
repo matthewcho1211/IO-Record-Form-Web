@@ -45,13 +45,14 @@
   </body>
   <script>
     $(document).ready(function () {
+      let ip = "<%= ip %>";
       $("#confirm-button").click(function () {
         const recordId = $("#record_id1").val();
         // 确保病历号已输入
         if (recordId) {
           // 发送 AJAX 请求到后端
           $.ajax({
-            url: 'http://localhost:3000/qrcode/' + recordId,  // 更新后端路由
+            url: `http://${ip}:3000/qrcode/` + recordId,  // 更新后端路由
             method: 'GET',
             success: function (html) {
               // 在页面上显示 QR 码
