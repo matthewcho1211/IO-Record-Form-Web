@@ -20,7 +20,7 @@ router.get('/:record_id', async (req, res) => {
     const recordId = req.params.record_id;
     try {
         // target url
-        const url = `https://${ip}/vertification/${recordId}`;
+        const url = `http://${ip}/patient/vertification/${recordId}`;
         // generate url resource
         const qrcodeDataURL = await qrcode.toDataURL(url, options);
         // set img in html
