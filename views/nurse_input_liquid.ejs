@@ -72,7 +72,7 @@
       <!-- 新增時段輸入 -->
       <div class="mb-3 col-md-6">
         <label for="period" class="form-label">輸入時段:</label>
-        <input type="number" class="form-control" id="period" />
+        <input type="number" class="form-control" id="period1" />
       </div>
 
       <button type="button" class="btn btn-success" id="confirm-button">
@@ -241,7 +241,7 @@
       const record_id = $("#record_id1").val();
       let date = $("#date1").val();
       date = formatDateToInteger(date);
-      let period = $("#period").val();
+      let period = $("#period1").val();
       $.ajax({
         url: `http://${ip}/api/input/amount/${date}/${record_id}/${period}/液體`, // 替換成您的API網址
         method: "GET",
