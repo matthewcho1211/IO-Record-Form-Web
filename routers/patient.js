@@ -56,13 +56,14 @@ router.get("/select", async function (req, res) {
   await axios
     .get(`http://${ip}/api/patient/${recordId}`)
     .then((res) => {
-      patientName = res.data.split(',')[3].split('"')[1]
+      let data = res.data.toString()
+      patientName = res.data.toString().split(',')[3]
     })
     .catch((error) => {
       console.log(error)
     })
 
-  res.render("select_page", { recordId: recordId, patientName: patientName });
+  res.render("select_page", { record_id: recordId, patient_name: patientName });
 });
 
 router.post("/select", encoder, function (req, res) {
@@ -78,7 +79,7 @@ router.post("/select", encoder, function (req, res) {
 
 //input
 router.get("/select/input/solid", function (req, res) {
-  res.render("patient_input_solid", { ip: ip });
+  res.render("patient_input_solid", { record_id: recordId, ip: ip });
 });
 
 router.post("/select/input/solid", encoder, function (req, res) {
@@ -96,7 +97,7 @@ router.post("/select/input/solid", encoder, function (req, res) {
 });
 
 router.get("/select/input/liquid", function (req, res) {
-  res.render("patient_input_liquid", { ip: ip });
+  res.render("patient_input_liquid", { record_id: recordId, ip: ip });
 });
 
 router.post("/select/input/liquid", encoder, function (req, res) {
@@ -115,7 +116,7 @@ router.post("/select/input/liquid", encoder, function (req, res) {
 
 //output
 router.get("/select/output/poop", function (req, res) {
-  res.render("patient_output_poop", { ip: ip });
+  res.render("patient_output_poop", { record_id: recordId, ip: ip });
 });
 
 router.post("/select/output/poop", encoder, function (req, res) {
@@ -136,7 +137,7 @@ router.post("/select/output/poop", encoder, function (req, res) {
 });
 
 router.get("/select/output/pee", function (req, res) {
-  res.render("patient_output_pee", { ip: ip });
+  res.render("patient_output_pee", { record_id: recordId, ip: ip });
 });
 
 router.post("/select/output/pee", encoder, function (req, res) {
@@ -157,7 +158,7 @@ router.post("/select/output/pee", encoder, function (req, res) {
 });
 
 router.get("/select/output/vomit", function (req, res) {
-  res.render("patient_output_vomit", { ip: ip });
+  res.render("patient_output_vomit", { record_id: recordId, ip: ip });
 });
 
 router.post("/select/output/vomit", encoder, function (req, res) {

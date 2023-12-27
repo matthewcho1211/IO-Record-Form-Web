@@ -63,10 +63,6 @@
 
       <!-- 选择日期 -->
       <div class="mb-3 col-md-6">
-        <label for="record_id" class="form-label">輸入病歷號:</label>
-        <input type="text" class="form-control" id="record_id1" />
-      </div>
-      <div class="mb-3 col-md-6">
         <label for="date" class="form-label">選擇：</label>
         <input type="date" class="form-control" id="date1" />
       </div>
@@ -100,10 +96,6 @@
         <span class="close">&times;</span>
         <h3 class="modal-title">新增數據按鈕</h3>
         <form id="add-data-form">
-          <div class="mb-3">
-            <label for="record_id" class="form-label">病歷號：</label>
-            <input type="text" class="form-control" id="record_id" required />
-          </div>
           <div class="mb-3">
             <label for="date" class="form-label">日期：</label>
             <input type="date" class="form-control" id="date" required />
@@ -140,6 +132,7 @@
 </html>
 <script>
   let ip = "<%= ip %>";
+  let record_id = "<%= record_id %>"
 
   $(document).ready(function () {
     $("#confirm-button").click(function () {
@@ -159,7 +152,7 @@
     });
     // 使用 AJAX 获取数据
     function displayData() {
-      const record_id = $("#record_id1").val();
+      //const record_id = $("#record_id1").val();
       let date = $("#date1").val();
       date = formatDateToInteger(date);
 
@@ -225,7 +218,7 @@
 
     //post功能
     function postData() {
-      const record_id = document.getElementById("record_id").value;
+      //const record_id = document.getElementById("record_id").value;
       let date = document.getElementById("date").value;
       let color = document.getElementById("color").value;
       let amount = document.getElementById("cc").value;
