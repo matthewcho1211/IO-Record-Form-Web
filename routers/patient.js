@@ -14,6 +14,7 @@ const ip = parsedIni.IP.SERVER_IP;
 app.use(bodyParser.json());
 
 let recordId;
+let patientName;
 
 // verticattion
 router.get("/vertification/:record_id", function (req, res) {
@@ -30,7 +31,7 @@ router.post("/vertification", encoder, async function (req, res) {
   let login;
 
   await axios
-    .get(`http://${ip}/api/vertification/12345678/${verticattionNumber}`)
+    .get(`http://${ip}/api/vertification/${recordId}/${verticattionNumber}`)
     .then((res) => {
       if (res.data == "Correct") {
         login = true;
@@ -50,8 +51,18 @@ router.post("/vertification", encoder, async function (req, res) {
 });
 
 // select
-router.get("/select", function (req, res) {
-  res.render("select_page");
+router.get("/select", async function (req, res) {
+
+  await axios
+    .get(`http://${ip}/api/patient/${recordId}`)
+    .then((res) => {
+      patientName = res.data.split(',')[3].split('"')[1]
+    })
+    .catch((error) => {
+      console.log(error)
+    })
+
+  res.render("select_page", { recordId: recordId, patientName: patientName });
 });
 
 router.post("/select", encoder, function (req, res) {
