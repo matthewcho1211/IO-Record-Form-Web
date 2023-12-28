@@ -56,7 +56,7 @@
       </div>
 
       <!-- 選擇日期 -->
-      <div class="mb-3 col-md-6">
+      <!-- <div class="mb-3 col-md-6">
         <label for="record_id" class="form-label">輸入病歷號:</label>
         <input
           type="text"
@@ -64,7 +64,7 @@
           id="record_id1"
           value="<%= record_id %>"
         />
-      </div>
+      </div> -->
       <div class="mb-3 col-md-6">
         <label for="date" class="form-label">選擇：</label>
         <input type="date" class="form-control" id="date1" />
@@ -308,7 +308,8 @@
 
     //post功能
     function postData() {
-      const record_id = document.getElementById("record_id").value;
+      // const record_id = document.getElementById("record_id").value;
+      let record_id = "<%= record_id %>"
       const date = document.getElementById("date").value;
       const state = document.getElementById("state").value;
       const category = document.getElementById("category").value;
@@ -415,5 +416,23 @@
         modal.style.display = "none";
       }
     });
+  });
+
+  function calculatePeriod(time) {
+    const hour = parseInt(time.split(':')[0]);
+    if (hour >= 0 && hour < 8) {
+        return 1;  // 0點到8點
+    } else if (hour >= 8 && hour < 16) {
+        return 2;  // 8點到16點
+    } else {
+        return 3;  // 16點到24點
+    }
+  }
+
+  // 添加事件監聽器到時間選擇器
+  document.getElementById('time').addEventListener('change', function() {
+      const selectedTime = this.value;
+      const period = calculatePeriod(selectedTime);
+      document.getElementById('period').value = period;  // 自動填充計算出的時段
   });
 </script>

@@ -21,18 +21,16 @@
   <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <div class="container">
-        <form action="" method="post">
-          <button name = "kind" value = "select" class="navbar-brand">回首頁</button>
-        </form>
+          <button id = "btn" name = "kind" value = "select" class="navbar-brand">回首頁</button>
       </div>
     </nav>
 
     <div class="container mt-4">
-      <h2>QRCode產生</h2>
+      <h2>QR Code產生</h2>
 
       <!-- 選擇日期 -->
       <div class="mb-3 col-md-6">
-        <label for="record_id" class="form-label">輸入病歷號:</label>
+        <label for="record_id" class="form-label">病歷號:</label>
         <input type="text" class="form-control" id="record_id1" />
       </div>
 
@@ -44,15 +42,20 @@
 
   </body>
   <script>
+    let ip = "<%= ip %>";
+    let websiteIp = "<%= websiteIp %>"
+
+    console.log(ip);
+
+  //  
     $(document).ready(function () {
-      let websiteIp = "<%= websiteIp %>";
       $("#confirm-button").click(function () {
         const recordId = $("#record_id1").val();
         // 确保病历号已输入
         if (recordId) {
           // 发送 AJAX 请求到后端
           $.ajax({
-            url: `http://${websiteIp}/qrcode/${recordId}`,  // 更新后端路由
+            url: `http://${ip}:3000/qrcode/` + recordId,  // 更新后端路由
             method: 'GET',
             success: function (html) {
               // 在页面上显示 QR 码
@@ -67,7 +70,28 @@
           alert("請輸入正確的病歷號");
         }
       });
+
+      $("#btn").click(() => {
+        window.location.href = "/nurse/patient";
+      });
     });
+
+          // 頁面載入時的操作
+        $(window).on('load', function () {
+        // 獲取URL中的查詢參數
+        const urlParams = new URLSearchParams(window.location.search);
+        console.log("hello");
+        
+        // 檢查是否存在record_id參數
+        if (urlParams.has('record_id')) {
+          // 獲取record_id的值
+          const recordId = urlParams.get('record_id');
+        
+          
+          // 將recordId的值設定為輸入框的值
+          $("#record_id1").val(recordId);
+        }
+      });
   </script>
   
 </html>
