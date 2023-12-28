@@ -92,7 +92,8 @@
         let nameCell = row.insertCell(3);
         let npoCell = row.insertCell(4);
         let allergyCell = row.insertCell(5);
-        let actionCell = row.insertCell(6); // 新增的列
+        let actionCell = row.insertCell(6); 
+        let qrcodeCell = row.insertCell(7); // 新增的列
 
         caseNumberCell.innerHTML = rowData[0];
         bedNumberCell.innerHTML = rowData[1];
@@ -109,7 +110,21 @@
           submitPatientData(rowData[0], rowData[3]);
         };
         actionCell.appendChild(btn);
+
+      // 新增查看詳細信息按鈕
+      let viewDetailsBtn = document.createElement("button");
+      viewDetailsBtn.innerHTML = "產生QR Code";
+      viewDetailsBtn.className = "btn btn-primary";
+      viewDetailsBtn.onclick = function () {
+        redirectToPatientPage(rowData[0]);
+        };
+        qrcodeCell.appendChild(viewDetailsBtn);
       });
+    }
+
+    function redirectToPatientPage(record_id) {
+      // 導向到另一個頁面
+      window.location.href = `http://localhost:3000/nurse/patient/qrcode?record_id=${record_id}`;
     }
 
     function submitPatientData(record_id, patient_name) {

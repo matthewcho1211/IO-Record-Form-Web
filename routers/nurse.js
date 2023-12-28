@@ -202,7 +202,7 @@ router.post("/select/output/vomit", encoder, function (req, res) {
 });
 
 router.get("/patient/qrcode", function (req, res) {
-  res.render("nurse_qrcode", { websiteIp: websiteIp });
+  res.render("nurse_qrcode", { websiteIp: websiteIp});
 });
 
 module.exports = router;
