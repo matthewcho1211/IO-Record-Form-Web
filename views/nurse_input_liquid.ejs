@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -31,7 +32,8 @@
 
     <div class="container mt-4">
       <h2>輸入數據</h2>
-      <h3>病人名稱: <%= patient_name %></h3>
+      <h3>病人名稱: 廖品傑</h3>
+      <h3>病人病歷號: 12345678</h3>
 
       <!-- 選擇固體或液體 -->
       <div class="btn-group" role="group">
@@ -56,15 +58,6 @@
       </div>
 
       <!-- 選擇日期 -->
-      <!-- <div class="mb-3 col-md-6">
-        <label for="record_id" class="form-label">輸入病歷號:</label>
-        <input
-          type="text"
-          class="form-control"
-          id="record_id1"
-          value="<%= record_id %>"
-        />
-      </div> -->
       <div class="mb-3 col-md-6">
         <label for="date" class="form-label">選擇：</label>
         <input type="date" class="form-control" id="date1" />
@@ -85,7 +78,7 @@
           <tr>
             <th>時間</th>
             <th>類別</th>
-            <th>CC數</th>
+            <th>CC數(毫升)</th>
             <th>登記</th>
           </tr>
         </thead>
@@ -103,48 +96,40 @@
 
     <!-- 彈跳視窗 -->
     <div id="modal" class="modal">
-      <div class="modal-content">
-        <span class="close">&times;</span>
-        <h3 class="modal-title">新增數據按鈕</h3>
+      <div class="modal-content" style="max-width: 800px;max-height: 1000px;position:absolute;left:25%;top:3%">
+        <span class="close m-1">&times;</span>
+        <h3 class="modal-title m-1 ml-3">新增數據按鈕</h3>
         <form id="add-data-form">
-          <div class="mb-3">
-            <label for="record_id" class="form-label">病歷號：</label>
-            <input
-              type="text"
-              class="form-control"
-              id="record_id"
-              value="<%= record_id %>"
-              required
-            />
+          <div class="m-3">
+            <label for="record_id" class="form-label">病歷號： 12345678</label>
           </div>
-          <div class="mb-3">
+          <div class="m-3">
             <label for="date" class="form-label">日期：</label>
             <input type="date" class="form-control" id="date" required />
           </div>
-          <div class="mb-3">
+          <div class="m-3">
             <label for="state" class="form-label">狀態：</label>
             <select class="form-control" id="state" required>
-              <option value="固體">固體</option>
               <option value="液體">液體</option>
             </select>
           </div>
-          <div class="mb-3">
+          <div class="m-3">
             <label for="category" class="form-label">類別：</label>
             <input type="text" class="form-control" id="category" required />
           </div>
-          <div class="mb-3">
-            <label for="amount" class="form-label">CC數：</label>
+          <div class="m-3">
+            <label for="amount" class="form-label">CC數(毫升)：</label>
             <input type="number" class="form-control" id="amount" required />
           </div>
-          <div class="mb-3">
+          <div class="m-3">
             <label for="time" class="form-label">時間：</label>
             <input type="time" class="form-control" id="time" required />
           </div>
-          <div class="mb-3">
+          <div class="m-3">
             <label for="period" class="form-label">時段：</label>
-            <input type="number" class="form-control" id="period" required />
+            <input type="text" class="form-control" id="period" required />
           </div>
-          <button type="button" class="btn btn-primary" id="postBtn">
+          <button type="button" class="btn btn-primary m-1" id="postBtn">
             確定
           </button>
         </form>
@@ -153,8 +138,8 @@
   </body>
 </html>
 <script>
-  let ip = "<%= ip %>";
-  let record_id = "<%= record_id %>"
+  let ip = "182.233.92.218:5000";
+  let record_id = "12345678"
   console.log(record_id)
 
   $(document).ready(function () {
@@ -176,7 +161,7 @@
     });
     // 使用 AJAX 获取数据
     function displayData() {
-      const record_id = $("#record_id1").val();
+      // const record_id = $("#record_id1").val();
       let date = $("#date1").val();
       date = formatDateToInteger(date);
 
@@ -229,6 +214,7 @@
               "'>刪除</button></td>" + // 刪除按鈕
               "</tr>";
             $("#data-table").append(rowHtml);
+            displayTotal();
           }
         },
         error: function (error) {
@@ -238,7 +224,7 @@
     }
 
     function displayTotal() {
-      const record_id = $("#record_id1").val();
+      // const record_id = $("#record_id1").val();
       let date = $("#date1").val();
       date = formatDateToInteger(date);
       let period = $("#period1").val();
@@ -308,8 +294,7 @@
 
     //post功能
     function postData() {
-      // const record_id = document.getElementById("record_id").value;
-      let record_id = "<%= record_id %>"
+
       const date = document.getElementById("date").value;
       const state = document.getElementById("state").value;
       const category = document.getElementById("category").value;
@@ -421,11 +406,11 @@
   function calculatePeriod(time) {
     const hour = parseInt(time.split(':')[0]);
     if (hour >= 0 && hour < 8) {
-        return 1;  // 0點到8點
+        return '大夜';  // 0點到8點
     } else if (hour >= 8 && hour < 16) {
-        return 2;  // 8點到16點
+        return '白班';  // 8點到16點
     } else {
-        return 3;  // 16點到24點
+        return '小夜';  // 16點到24點
     }
   }
 

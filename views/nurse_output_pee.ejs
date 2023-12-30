@@ -146,7 +146,7 @@
           </div>
           <div class="mb-3">
             <label for="period" class="form-label">時段：</label>
-            <input type="number" class="form-control" id="period" required />
+            <input type="text" class="form-control" id="period" required />
           </div>
           <button type="button" class="btn btn-primary" id="postBtn">
             確定
@@ -415,11 +415,11 @@
   function calculatePeriod(time) {
     const hour = parseInt(time.split(':')[0]);
     if (hour >= 0 && hour < 8) {
-        return 1;  // 0點到8點
+        return '大夜';  // 0點到8點
     } else if (hour >= 8 && hour < 16) {
-        return 2;  // 8點到16點
+        return '白班';  // 8點到16點
     } else {
-        return 3;  // 16點到24點
+        return '小夜';  // 16點到24點
     }
   }
 
