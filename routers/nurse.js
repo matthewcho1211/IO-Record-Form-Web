@@ -37,8 +37,8 @@ router.post("/login", encoder, async function (req, res) {
       if (res.data == "Account not found") {
         login = false;
       } else {
-        name = res.data[0][0];
-        employee_id = res.data[0][1];
+        name = res.data[0][1];
+        employee_id = res.data[0][0];
         login = true;
       }
     })
@@ -53,12 +53,8 @@ router.post("/login", encoder, async function (req, res) {
   }
 });
 
-router.get("/patient", function (req, res) {
-  res.render("nurse_patient", { ip: ip, name: name, employee_id: employee_id , websiteIp: websiteIp});
-});
-
 router.get("/select", function (req, res) {
-  res.render("select_page", {
+  res.render("nurse_select_page", {
     record_id: record_id,
     patient_name: patient_name
   });
@@ -73,6 +69,10 @@ router.post("/select", encoder, function (req, res) {
     res.redirect("/nurse/select/output/poop");
     res.end();
   }
+});
+
+router.get("/patient", function (req, res) {
+  res.render("nurse_patient", { ip: ip, name: name, employee_id: employee_id , websiteIp: websiteIp});
 });
 
 router.post("/patient", encoder, function (req, res) {
@@ -201,8 +201,9 @@ router.post("/select/output/vomit", encoder, function (req, res) {
   }
 });
 
-router.get("/patient/qrcode", function (req, res) {
-  res.render("nurse_qrcode", { websiteIp: websiteIp});
+router.get("/patient/qrcode/:record_id", function (req, res) {
+  recordId = req.params.record_id;
+  res.render("nurse_qrcode", { ip: ip, websiteIp: websiteIp, recordId: recordId});
 });
 
 module.exports = router;
