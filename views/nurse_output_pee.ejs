@@ -32,6 +32,7 @@
     <div class="container mt-4">
       <h2>輸入數據</h2>
       <h3>病人名稱: <%= patient_name %></h3>
+      <h3>病人病歷號: <%= record_id %></h3>
 
       <div class="btn-group" role="group">
         <form action="" method="post">
@@ -63,15 +64,6 @@
       </div>
 
       <!-- 选择日期 -->
-      <div class="mb-3 col-md-6">
-        <label for="record_id" class="form-label">輸入病歷號:</label>
-        <input
-          type="text"
-          class="form-control"
-          id="record_id1"
-          value="<%= record_id %>"
-        />
-      </div>
       <div class="mb-3 col-md-6">
         <label for="date" class="form-label">選擇：</label>
         <input type="date" class="form-control" id="date1" />
@@ -108,25 +100,18 @@
 
     <!-- 模态框 -->
     <div id="modal" class="modal">
-      <div class="modal-content">
-        <span class="close">&times;</span>
-        <h3 class="modal-title">新增數據按鈕</h3>
+      <div class="modal-content" style="max-width: 800px;max-height: 1000px;position:absolute;left:25%;top:3%">
+      <span class="close m-1">&times;</span>
+        <h3 class="modal-title m-1">新增數據按鈕</h3>
         <form id="add-data-form">
-          <div class="mb-3">
-            <label for="record_id" class="form-label">病歷號：</label>
-            <input
-              type="text"
-              class="form-control"
-              id="record_id"
-              value="<%= record_id %>"
-              required
-            />
+          <div class="m-3">
+            <label for="record_id" class="form-label">病歷號：<%= record_id %></label>
           </div>
-          <div class="mb-3">
+          <div class="m-3">
             <label for="date" class="form-label">日期：</label>
             <input type="date" class="form-control" id="date" required />
           </div>
-          <div class="mb-3">
+          <div class="m-3">
             <label for="color" class="form-label">顏色：</label>
             <select class="form-select" id="color" required>
               <option value="1">橘紅色</option>
@@ -136,19 +121,19 @@
               <option value="5">血紅色</option>
             </select>
           </div>
-          <div class="mb-3">
+          <div class="m-3">
             <label for="cc" class="form-label">CC數(毫升)：</label>
             <input type="number" class="form-control" id="cc" required />
           </div>
-          <div class="mb-3">
+          <div class="m-3">
             <label for="time" class="form-label">時間：</label>
             <input type="time" class="form-control" id="time" required />
           </div>
-          <div class="mb-3">
+          <div class="m-3">
             <label for="period" class="form-label">時段：</label>
             <input type="number" class="form-control" id="period" required />
           </div>
-          <button type="button" class="btn btn-primary" id="postBtn">
+          <button type="button" class="btn btn-primary m-1" id="postBtn">
             確定
           </button>
         </form>
@@ -158,6 +143,7 @@
 </html>
 <script>
   let ip = "<%= ip %>";
+  let record_id = "<%= record_id %>"
 
   $(document).ready(function () {
     $("#confirm-button").click(function () {
@@ -178,7 +164,7 @@
     });
     // 使用 AJAX 获取数据
     function displayData() {
-      const record_id = $("#record_id1").val();
+      //const record_id = $("#record_id1").val();
       let date = $("#date1").val();
       date = formatDateToInteger(date);
 
@@ -233,7 +219,7 @@
     }
 
     function displayTotal() {
-      const record_id = $("#record_id1").val();
+      //const record_id = $("#record_id1").val();
       let date = $("#date1").val();
       date = formatDateToInteger(date);
       let period = $("#period1").val();
@@ -258,7 +244,7 @@
 
     // 定義 registerData 函數來處理 API 請求
     function registerData(id) {
-      const record_id = $("#record_id1").val();
+      //const record_id = $("#record_id1").val();
       // 在這裡發送 AJAX 請求到 /api/patient/register
       // 例如：
       $.ajax({
@@ -303,7 +289,7 @@
 
     //post功能
     function postData() {
-      const record_id = document.getElementById("record_id").value;
+      //const record_id = document.getElementById("record_id").value;
       let date = document.getElementById("date").value;
       let color = document.getElementById("color").value;
       let amount = document.getElementById("cc").value;
