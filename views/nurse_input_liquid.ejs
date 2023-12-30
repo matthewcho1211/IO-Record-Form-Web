@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -32,8 +31,8 @@
 
     <div class="container mt-4">
       <h2>輸入數據</h2>
-      <h3>病人名稱: 廖品傑</h3>
-      <h3>病人病歷號: 12345678</h3>
+      <h3>病人名稱: <%= patient_name %></h3>
+      <h3>病人病歷號: <%= record_id %></h3>
 
       <!-- 選擇固體或液體 -->
       <div class="btn-group" role="group">
@@ -57,7 +56,6 @@
         </form>
       </div>
 
-      <!-- 選擇日期 -->
       <div class="mb-3 col-md-6">
         <label for="date" class="form-label">選擇：</label>
         <input type="date" class="form-control" id="date1" />
@@ -101,7 +99,7 @@
         <h3 class="modal-title m-1 ml-3">新增數據按鈕</h3>
         <form id="add-data-form">
           <div class="m-3">
-            <label for="record_id" class="form-label">病歷號： 12345678</label>
+            <label for="record_id" class="form-label">病歷號： <%= record_id %></label>
           </div>
           <div class="m-3">
             <label for="date" class="form-label">日期：</label>
@@ -127,7 +125,7 @@
           </div>
           <div class="m-3">
             <label for="period" class="form-label">時段：</label>
-            <input type="text" class="form-control" id="period" required />
+            <input type="number" class="form-control" id="period" required />
           </div>
           <button type="button" class="btn btn-primary m-1" id="postBtn">
             確定
@@ -138,8 +136,8 @@
   </body>
 </html>
 <script>
-  let ip = "182.233.92.218:5000";
-  let record_id = "12345678"
+  let ip = "<%= ip %>";
+  let record_id = "<%= record_id %>"
   console.log(record_id)
 
   $(document).ready(function () {
@@ -161,7 +159,6 @@
     });
     // 使用 AJAX 获取数据
     function displayData() {
-      // const record_id = $("#record_id1").val();
       let date = $("#date1").val();
       date = formatDateToInteger(date);
 
@@ -214,7 +211,6 @@
               "'>刪除</button></td>" + // 刪除按鈕
               "</tr>";
             $("#data-table").append(rowHtml);
-            displayTotal();
           }
         },
         error: function (error) {
@@ -224,7 +220,6 @@
     }
 
     function displayTotal() {
-      // const record_id = $("#record_id1").val();
       let date = $("#date1").val();
       date = formatDateToInteger(date);
       let period = $("#period1").val();
@@ -249,7 +244,6 @@
     });
 
     function registerData(id) {
-      const record_id = $("#record_id1").val();
       // 在這裡發送 AJAX 請求到 /api/patient/register
       // 例如：
       $.ajax({
@@ -294,7 +288,7 @@
 
     //post功能
     function postData() {
-
+      // const record_id = document.getElementById("record_id").value;
       const date = document.getElementById("date").value;
       const state = document.getElementById("state").value;
       const category = document.getElementById("category").value;
