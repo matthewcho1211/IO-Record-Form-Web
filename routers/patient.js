@@ -63,7 +63,7 @@ router.get("/select", async function (req, res) {
       console.log(error)
     })
 
-  res.render("select_page", { record_id: recordId, patient_name: patientName });
+  res.render("patient_select_page", { record_id: recordId, patient_name: patientName });
 });
 
 router.post("/select", encoder, function (req, res) {

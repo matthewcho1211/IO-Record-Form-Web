@@ -116,15 +116,10 @@
       viewDetailsBtn.innerHTML = "產生QR Code";
       viewDetailsBtn.className = "btn btn-primary";
       viewDetailsBtn.onclick = function () {
-        redirectToPatientPage(rowData[0]);
-        };
+        submitPatientQrcode(rowData[0])  
+      };
         qrcodeCell.appendChild(viewDetailsBtn);
       });
-    }
-
-    function redirectToPatientPage(record_id) {
-      // 導向到另一個頁面
-      window.location.href = `http://localhost:3000/nurse/patient/qrcode?record_id=${record_id}`;
     }
 
     function submitPatientData(record_id, patient_name) {
@@ -145,6 +140,28 @@
           alert("數據提交失敗。");
         },
       });
+    }
+
+    function submitPatientQrcode(record_id) {
+      window.location.href = `/nurse/patient/qrcode/${record_id}`
+      /*
+      $.ajax({
+        type: "POST",
+        url: `http://${websiteIp}/nurse/patient`, // 調整後端API的URL
+        contentType: "application/json",
+        data: JSON.stringify({
+          record_id: record_id
+        }),
+        success: function (response) {
+          console.log(record_id);
+          window.location.href = `/nurse/qrcode/${record_id}`; // 直接使用已知的URL进行重定向
+        },
+
+        error: function () {
+          alert("數據提交失敗。");
+        },
+      });
+      */
     }
   });
   document.addEventListener("DOMContentLoaded", function () {

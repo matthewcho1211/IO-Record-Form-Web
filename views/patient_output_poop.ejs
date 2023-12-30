@@ -78,7 +78,7 @@
             <th>時間</th>
             <th>性質</th>
             <th>顏色</th>
-            <th>公克數</th>
+            <th>重量(公克)</th>
           </tr>
         </thead>
         <tbody id="data-table">
@@ -95,14 +95,14 @@
     <!-- 模态框 -->
     <div id="modal" class="modal">
       <div class="modal-content">
-        <span class="close">&times;</span>
-        <h3 class="modal-title">新增數據按鈕</h3>
+        <span class="close m-1">&times;</span>
+        <h3 class="modal-title m-1">新增數據按鈕</h3>
         <form id="add-data-form">
-          <div class="mb-3">
+          <div class="m-3">
             <label for="date" class="form-label">日期：</label>
             <input type="date" class="form-control" id="date" required />
           </div>
-          <div class="mb-3">
+          <div class="m-3">
             <label for="property" class="form-label">性質：</label>
             <select class="form-select" id="property" required>
               <option value="1">稀便</option>
@@ -113,7 +113,7 @@
               <option value="6">其他</option>
             </select>
           </div>
-          <div class="mb-3">
+          <div class="m-3">
             <label for="color" class="form-label">顏色：</label>
             <select class="form-select" id="color" required>
               <option value="1">黃褐色</option>
@@ -124,19 +124,19 @@
               <option value="6">其他</option>
             </select>
           </div>
-          <div class="mb-3">
-            <label for="gram" class="form-label">公克數：</label>
+          <div class="m-3">
+            <label for="gram" class="form-label">重量(公克)：</label>
             <input type="number" class="form-control" id="gram" required />
           </div>
-          <div class="mb-3">
+          <div class="m-3">
             <label for="time" class="form-label">時間：</label>
             <input type="time" class="form-control" id="time" required />
           </div>
-          <div class="mb-3">
+          <div class="m-3">
             <label for="period" class="form-label">時段：</label>
             <input type="number" class="form-control" id="period" required />
           </div>
-          <button type="button" class="btn btn-primary" id="postBtn">
+          <button type="button" class="btn btn-primary m-1" id="postBtn">
             確定
           </button>
         </form>

@@ -29,14 +29,9 @@
       <h2>QR Code產生</h2>
 
       <!-- 選擇日期 -->
-      <div class="mb-3 col-md-6">
-        <label for="record_id" class="form-label">病歷號:</label>
-        <input type="text" class="form-control" id="record_id1" />
+      <div class="mb-2 col-md-6">
+        <label for="record_id" class="form-label">病歷號:<%= recordId %></label>
       </div>
-
-      <button type="button" class="btn btn-success" id="confirm-button">
-        確認
-      </button>
 
       <div id="qrcode-container"></div>
 
@@ -44,18 +39,12 @@
   <script>
     let ip = "<%= ip %>";
     let websiteIp = "<%= websiteIp %>"
-
-    console.log(ip);
-
-  //  
+    let recordId = "<%= recordId %>"
+    
     $(document).ready(function () {
-      $("#confirm-button").click(function () {
-        const recordId = $("#record_id1").val();
-        // 确保病历号已输入
-        if (recordId) {
-          // 发送 AJAX 请求到后端
-          $.ajax({
-            url: `http://${ip}:3000/qrcode/` + recordId,  // 更新后端路由
+      console.log(recordId)
+      $.ajax({
+            url: `http://${websiteIp}/qrcode/` + recordId,  // 更新后端路由
             method: 'GET',
             success: function (html) {
               // 在页面上显示 QR 码
@@ -66,11 +55,18 @@
               alert("生成QRcode失敗");
             }
           });
+      /*
+      $("#confirm-button").click(function () {
+        const recordId = $("#record_id1").val();
+        // 确保病历号已输入
+        if (recordId) {
+          // 发送 AJAX 请求到后端
+          
         } else {
           alert("請輸入正確的病歷號");
         }
       });
-
+      */
       $("#btn").click(() => {
         window.location.href = "/nurse/patient";
       });
