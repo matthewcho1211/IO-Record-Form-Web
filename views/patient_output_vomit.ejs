@@ -92,31 +92,36 @@
 
     <!-- 模态框 -->
     <div id="modal" class="modal">
-      <div class="modal-content">
-        <span class="close m-1">&times;</span>
-        <h3 class="modal-title m-1">新增數據按鈕</h3>
-        <form id="add-data-form">
-          <div class="m-3">
-            <label for="date" class="form-label">日期：</label>
-            <input type="date" class="form-control" id="date" required />
-          </div>
-          <div class="m-3">
-            <label for="weight" class="form-label">重量(公克)：</label>
-            <input type="number" class="form-control" id="weight" required />
-          </div>
-          <div class="m-3">
-            <label for="time" class="form-label">時間：</label>
-            <input type="time" class="form-control" id="time" required />
-          </div>
-          <div class="m-3">
-            <label for="period" class="form-label">時段：</label>
-            <input type="text" class="form-control" id="period" required />
-          </div>
-          <button type="button" class="btn btn-primary m-1" id="postBtn">
-            確定
-          </button>
-        </form>
-      </div>
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <span class="close m-1">&times;</span>
+          <h3 class="modal-title m-1">新增數據按鈕</h3>
+          <form id="add-data-form">
+            <div class="m-3">
+              <label for="record_id" class="form-label">病歷號：<%= record_id %></label>
+            </div>
+            <div class="m-3">
+              <label for="date" class="form-label">日期：</label>
+              <input type="date" class="form-control" id="date" required />
+            </div>
+            <div class="m-3">
+              <label for="weight" class="form-label">重量(公克)：</label>
+              <input type="number" class="form-control" id="weight" required />
+            </div>
+            <div class="m-3">
+              <label for="time" class="form-label">時間：</label>
+              <input type="time" class="form-control" id="time" required />
+            </div>
+            <div class="m-3">
+              <label for="period" class="form-label">時段：</label>
+              <input type="text" class="form-control" id="period" required />
+            </div>
+            <button type="button" class="btn btn-primary m-1" id="postBtn">
+              確定
+            </button>
+          </form>
+        </div>
+        </div>
     </div>
   </body>
 </html>

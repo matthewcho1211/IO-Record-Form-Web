@@ -104,44 +104,46 @@
 
     <!-- 模态框 -->
     <div id="modal" class="modal">
-      <div class="modal-content" style="max-width: 800px;max-height: 1000px;position:absolute;left:25%;top:3%">
-      <span class="close m-1">&times;</span>
-        <h3 class="modal-title m-1">新增數據按鈕</h3>
-        <form id="add-data-form">
-          <div class="m-3">
-            <label for="record_id" class="form-label">病歷號：<%= record_id %></label>
-          </div>
-          <div class="m-3">
-            <label for="date" class="form-label">日期：</label>
-            <input type="date" class="form-control" id="date" required />
-          </div>
-          <div class="m-3">
-            <label for="color" class="form-label">顏色：</label>
-            <select class="form-select" id="color" required>
-              <option value="1">橘紅色</option>
-              <option value="2">黃色</option>
-              <option value="3">透明色</option>
-              <option value="4">深黃色</option>
-              <option value="5">血紅色</option>
-            </select>
-          </div>
-          <div class="m-3">
-            <label for="cc" class="form-label">CC數(毫升)：</label>
-            <input type="number" class="form-control" id="cc" required />
-          </div>
-          <div class="m-3">
-            <label for="time" class="form-label">時間：</label>
-            <input type="time" class="form-control" id="time" required />
-          </div>
-          <div class="m-3">
-            <label for="period" class="form-label">時段：</label>
-            <input type="number" class="form-control" id="period" required />
-          </div>
-          <button type="button" class="btn btn-primary m-1" id="postBtn">
-            確定
-          </button>
-        </form>
-      </div>
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+        <span class="close m-1">&times;</span>
+          <h3 class="modal-title m-1">新增數據按鈕</h3>
+          <form id="add-data-form">
+            <div class="m-3">
+              <label for="record_id" class="form-label">病歷號：<%= record_id %></label>
+            </div>
+            <div class="m-3">
+              <label for="date" class="form-label">日期：</label>
+              <input type="date" class="form-control" id="date" required />
+            </div>
+            <div class="m-3">
+              <label for="color" class="form-label">顏色：</label>
+              <select class="form-select" id="color" required>
+                <option value="1">橘紅色</option>
+                <option value="2">黃色</option>
+                <option value="3">透明色</option>
+                <option value="4">深黃色</option>
+                <option value="5">血紅色</option>
+              </select>
+            </div>
+            <div class="m-3">
+              <label for="cc" class="form-label">CC數(毫升)：</label>
+              <input type="number" class="form-control" id="cc" required />
+            </div>
+            <div class="m-3">
+              <label for="time" class="form-label">時間：</label>
+              <input type="time" class="form-control" id="time" required />
+            </div>
+            <div class="m-3">
+              <label for="period" class="form-label">時段：</label>
+              <input type="number" class="form-control" id="period" required />
+            </div>
+            <button type="button" class="btn btn-primary m-1" id="postBtn">
+              確定
+            </button>
+          </form>
+        </div>
+        </div>
     </div>
   </body>
 </html>
