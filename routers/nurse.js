@@ -6,6 +6,7 @@ const encoder = bodyParser.urlencoded();
 const fs = require("fs");
 const ini = require("ini");
 const axios = require("axios");
+const url = require("url");
 
 const iniData = fs.readFileSync("config.ini", "utf-8");
 const parsedIni = ini.parse(iniData);
@@ -23,7 +24,11 @@ let record_id;
 let patient_name;
 
 router.get("/login", function (req, res) {
-  res.render("nurse_login");
+  if(req.query.state == 'wrong') {
+    res.render("nurse_login", {state: req.query.state})
+  } else {
+    res.render("nurse_login", {state: 'good'});
+  }
 });
 
 router.post("/login", encoder, async function (req, res) {
@@ -49,7 +54,11 @@ router.post("/login", encoder, async function (req, res) {
   if (login == true) {
     res.redirect("/nurse/patient");
   } else {
-    res.redirect("/nurse/login");
+    res.redirect(url.format({
+      pathname: "/nurse/login",
+      query: 
+        {"state": "wrong"}
+    }));
   }
 });
 

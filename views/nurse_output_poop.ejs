@@ -23,7 +23,7 @@
       <div class="container">
         <form action="" method="post">
           <button name="kind" value="select" class="navbar-brand">
-            回首頁
+            回上一頁
           </button>
         </form>
       </div>
@@ -71,7 +71,11 @@
       </div>
       <div class="mb-3 col-md-6">
         <label for="period" class="form-label">輸入時段:</label>
-        <input type="number" class="form-control" id="period1" />
+        <select class="form-label" id="period1" required>
+          <option value="2">白班</option>
+          <option value="3">小夜</option>
+          <option value="1">大夜</option>
+        </select>
       </div>
       <button type="button" class="btn btn-success" id="confirm-button">
         確認
@@ -102,55 +106,59 @@
 
     <!-- 模态框 -->
     <div id="modal" class="modal">
-      <div class="modal-content" style="max-width: 800px;max-height: 1000px;position:absolute;left:25%;top:3%">
-      <span class="close m-1">&times;</span>
-        <h3 class="modal-title m-1">新增數據按鈕</h3>
-        <form id="add-data-form">
-          <div class="m-3">
-            <label for="record_id" class="form-label">病歷號：<%= record_id %></label>
-          </div>
-          <div class="m-3">
-            <label for="date" class="form-label">日期：</label>
-            <input type="date" class="form-control" id="date" required />
-          </div>
-          <div class="m-3">
-            <label for="property" class="form-label">性質：</label>
-            <select class="form-select" id="property" required>
-              <option value="1">稀便</option>
-              <option value="2">糊便</option>
-              <option value="3">軟便</option>
-              <option value="4">硬便</option>
-              <option value="5">血便</option>
-              <option value="6">其他</option>
-            </select>
-          </div>
-          <div class="m-3">
-            <label for="color" class="form-label">顏色：</label>
-            <select class="form-select" id="color" required>
-              <option value="1">黃褐色</option>
-              <option value="2">金黃色</option>
-              <option value="3">黑色</option>
-              <option value="4">綠色</option>
-              <option value="5">紅色</option>
-              <option value="6">其他</option>
-            </select>
-          </div>
-          <div class="m-3">
-            <label for="gram" class="form-label">重量(公克)：</label>
-            <input type="number" class="form-control" id="gram" required />
-          </div>
-          <div class="m-3">
-            <label for="time" class="form-label">時間：</label>
-            <input type="time" class="form-control" id="time" required />
-          </div>
-          <div class="m-3">
-            <label for="period" class="form-label">時段：</label>
-            <input type="text" class="form-control" id="period" required />
-          </div>
-          <button type="button" class="btn btn-primary m-1" id="postBtn">
-            確定
-          </button>
-        </form>
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+        <span class="close m-1">&times;</span>
+          <h3 class="modal-title m-1">新增數據按鈕</h3>
+          <form id="add-data-form">
+            <div class="m-3">
+              <label for="record_id" class="form-label">病歷號：<%= record_id %></label>
+            </div>
+            <div class="m-3">
+              <label for="date" class="form-label">日期：</label>
+              <input type="date" class="form-control" id="date" required />
+            </div>
+            <div class="m-3">
+              <label for="property" class="form-label">性質：</label>
+              <select class="form-select" id="property" required>
+                <option value="1">稀便</option>
+                <option value="2">糊便</option>
+                <option value="3">軟便</option>
+                <option value="4">硬便</option>
+                <option value="5">血便</option>
+                <option value="7">成形便</option>
+                <option value="6">其他</option>
+              </select>
+            </div>
+            <div class="m-3">
+              <label for="color" class="form-label">顏色：</label>
+              <select class="form-select" id="color" required>
+                <option value="1">黃褐色</option>
+                <option value="2">金黃色</option>
+                <option value="3">黑色</option>
+                <option value="4">綠色</option>
+                <option value="5">紅色</option>
+                <option value="7">咖啡色</option>
+                <option value="6">其他</option>
+              </select>
+            </div>
+            <div class="m-3">
+              <label for="gram" class="form-label">重量(公克)：</label>
+              <input type="number" class="form-control" id="gram" required />
+            </div>
+            <div class="m-3">
+              <label for="time" class="form-label">時間：</label>
+              <input type="time" class="form-control" id="time" required />
+            </div>
+            <div class="m-3">
+              <label for="period" class="form-label">時段：</label>
+              <input type="text" class="form-control" id="period" required />
+            </div>
+            <button type="button" class="btn btn-primary m-1" id="postBtn">
+              確定
+            </button>
+          </form>
+        </div>
       </div>
     </div>
   </body>
@@ -321,7 +329,7 @@
       const formattedDate = parseInt(formatDateToInteger(date));
       amount = parseInt(amount);
       const convertedTime = convertTimeToHHMM(time);
-      period = parseInt(period);
+      period = turnPeriod(period);
       let property_id = parseInt(property);
       let color_id = parseInt(color);
 
@@ -430,6 +438,16 @@
         return '白班';  // 8點到16點
     } else {
         return '小夜';  // 16點到24點
+    }
+  }
+
+  function turnPeriod(period) {
+    if(period == '大夜') {
+      return 1;
+    } else if(period == '白班') {
+      return 2;
+    } else if(period == '小夜') {
+      return 3;
     }
   }
 

@@ -23,7 +23,7 @@
       <div class="container">
         <form action="" method="post">
           <button name="kind" value="select" class="navbar-brand">
-            回首頁
+            回上一頁
           </button>
         </form>
       </div>
@@ -92,41 +92,46 @@
 
     <!-- 模态框 -->
     <div id="modal" class="modal">
-      <div class="modal-content">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
         <span class="close m-1">&times;</span>
-        <h3 class="modal-title m-1">新增數據按鈕</h3>
-        <form id="add-data-form">
-          <div class="m-3">
-            <label for="date" class="form-label">日期：</label>
-            <input type="date" class="form-control" id="date" required />
-          </div>
-          <div class="m-3">
-            <label for="color" class="form-label">顏色：</label>
-            <select class="form-select" id="color" required>
-              <option value="1">橘紅色</option>
-              <option value="2">黃色</option>
-              <option value="3">透明色</option>
-              <option value="4">深黃色</option>
-              <option value="5">血紅色</option>
-            </select>
-          </div>
-          <div class="m-3">
-            <label for="cc" class="form-label">CC數(毫升)：</label>
-            <input type="number" class="form-control" id="cc" required />
-          </div>
-          <div class="m-3">
-            <label for="time" class="form-label">時間：</label>
-            <input type="time" class="form-control" id="time" required />
-          </div>
-          <div class="m-3">
-            <label for="period" class="form-label">時段：</label>
-            <input type="text" class="form-control" id="period" required />
-          </div>
-          <button type="button" class="btn btn-primary m-1" id="postBtn">
-            確定
-          </button>
-        </form>
-      </div>
+          <h3 class="modal-title m-1">新增數據按鈕</h3>
+          <form id="add-data-form">
+            <div class="m-3">
+              <label for="record_id" class="form-label">病歷號：<%= record_id %></label>
+            </div>
+            <div class="m-3">
+              <label for="date" class="form-label">日期：</label>
+              <input type="date" class="form-control" id="date" required />
+            </div>
+            <div class="m-3">
+              <label for="color" class="form-label">顏色：</label>
+              <select class="form-select" id="color" required>
+                <option value="1">橘紅色</option>
+                <option value="2">黃色</option>
+                <option value="3">透明色</option>
+                <option value="4">深黃色</option>
+                <option value="5">血紅色</option>
+              </select>
+            </div>
+            <div class="m-3">
+              <label for="cc" class="form-label">CC數(毫升)：</label>
+              <input type="number" class="form-control" id="cc" required />
+            </div>
+            <div class="m-3">
+              <label for="time" class="form-label">時間：</label>
+              <input type="time" class="form-control" id="time" required />
+            </div>
+            <div class="m-3">
+              <label for="period" class="form-label">時段：</label>
+              <input type="number" class="form-control" id="period" required />
+            </div>
+            <button type="button" class="btn btn-primary m-1" id="postBtn">
+              確定
+            </button>
+          </form>
+        </div>
+        </div>
     </div>
   </body>
 </html>
@@ -229,7 +234,7 @@
       amount = parseInt(amount);
       const convertedTime = convertTimeToHHMM(time);
       let color_id = parseInt(color);
-      period = parseInt(period);
+      period = turnPeriod(period);
 
       $.ajax({
         url: `http://${ip}/api/output/pee`,
@@ -333,6 +338,16 @@
         return '白班';  // 8點到16點
     } else {
         return '小夜';  // 16點到24點
+    }
+  }
+
+  function turnPeriod(period) {
+    if(period == '大夜') {
+      return 1;
+    } else if(period == '白班') {
+      return 2;
+    } else if(period == '小夜') {
+      return 3;
     }
   }
 

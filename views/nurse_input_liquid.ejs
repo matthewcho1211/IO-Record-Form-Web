@@ -23,7 +23,7 @@
       <div class="container">
         <form action="" method="post">
           <button name="kind" value="select" class="navbar-brand">
-            回首頁
+            回上一頁
           </button>
         </form>
       </div>
@@ -62,8 +62,12 @@
       </div>
       <!-- 新增時段輸入 -->
       <div class="mb-3 col-md-6">
-        <label for="period" class="form-label">輸入時段:</label>
-        <input type="number" class="form-control" id="period1" />
+        <label for="period1" class="form-label">輸入時段:</label>
+        <select class="form-label" id="period1" required>
+          <option value="2">白班</option>
+          <option value="3">小夜</option>
+          <option value="1">大夜</option>
+        </select>
       </div>
 
       <button type="button" class="btn btn-success" id="confirm-button">
@@ -94,53 +98,55 @@
 
     <!-- 彈跳視窗 -->
     <div id="modal" class="modal">
-      <div class="modal-content" style="max-width: 800px;max-height: 1000px;position:absolute;left:25%;top:3%">
-        <span class="close m-1">&times;</span>
-        <h3 class="modal-title m-1 ml-3">新增數據按鈕</h3>
-        <form id="add-data-form">
-          <div class="m-3">
-            <label for="record_id" class="form-label">病歷號： <%= record_id %></label>
-          </div>
-          <div class="m-3">
-            <label for="date" class="form-label">日期：</label>
-            <input type="date" class="form-control" id="date" required />
-          </div>
-          <div class="m-3">
-            <label for="state" class="form-label">狀態：</label>
-            <select class="form-control" id="state" required>
-              <option value="液體">液體</option>
-            </select>
-          </div>
-          <div class="m-3">
-            <label for="category" class="form-label">類別：</label>
-            <input type="text" class="form-control" id="category" required />
-          </div>
-          <div class="m-3">
-            <label for="amount" class="form-label">CC數(毫升)：</label>
-            <input type="number" class="form-control" id="amount" required />
-          </div>
-          <div class="m-3">
-            <label for="time" class="form-label">時間：</label>
-            <input type="time" class="form-control" id="time" required />
-          </div>
-          <div class="m-3">
-            <label for="period" class="form-label">時段：</label>
-            <input type="number" class="form-control" id="period" required />
-          </div>
-          <button type="button" class="btn btn-primary m-1" id="postBtn">
-            確定
-          </button>
-        </form>
-      </div>
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <span class="close m-1">&times;</span>
+          <h3 class="modal-title m-1 ml-3">新增數據按鈕</h3>
+          <form id="add-data-form">
+            <div class="m-3">
+              <label for="record_id" class="form-label">病歷號： <%= record_id %></label>
+            </div>
+            <div class="m-3">
+              <label for="date" class="form-label">日期：</label>
+              <input type="date" class="form-control" id="date" required />
+            </div>
+            <div class="m-3">
+              <label for="state" class="form-label">狀態：</label>
+              <select class="form-control" id="state" required>
+                <option value="液體">液體</option>
+              </select>
+            </div>
+            <div class="m-3">
+              <label for="category" class="form-label">類別：</label>
+              <input type="text" class="form-control" id="category" required />
+            </div>
+            <div class="m-3">
+              <label for="amount" class="form-label">CC數(毫升)：</label>
+              <input type="number" class="form-control" id="amount" required />
+            </div>
+            <div class="m-3">
+              <label for="time" class="form-label">時間：</label>
+              <input type="time" class="form-control" id="time" required />
+            </div>
+            <div class="m-3">
+              <label for="period" class="form-label">時段：</label>
+              <input type="text" class="form-control" id="period" required />
+            </div>
+            <button type="button" class="btn btn-primary m-1" id="postBtn">
+              確定
+            </button>
+          </form>
+        </div>
+        </div>
     </div>
   </body>
 </html>
 <script>
   let ip = "<%= ip %>";
   let record_id = "<%= record_id %>"
-  console.log(record_id)
 
   $(document).ready(function () {
+
     $("#confirm-button").click(function () {
       displayData();
       displayTotal();
@@ -222,7 +228,9 @@
     function displayTotal() {
       let date = $("#date1").val();
       date = formatDateToInteger(date);
+      console.log(date)
       let period = $("#period1").val();
+      console.log(period)
       $.ajax({
         url: `http://${ip}/api/input/amount/${date}/${record_id}/${period}/液體`, // 替換成您的API網址
         method: "GET",
@@ -299,7 +307,7 @@
       const formattedDate = parseInt(formatDateToInteger(date));
       amount = parseInt(amount);
       const convertedTime = convertTimeToHHMM(time);
-      period = parseInt(period);
+      period = turnPeriod(period);
 
       $.ajax({
         url: `http://${ip}/api/input`,
@@ -405,6 +413,16 @@
         return '白班';  // 8點到16點
     } else {
         return '小夜';  // 16點到24點
+    }
+  }
+
+  function turnPeriod(period) {
+    if(period == '大夜') {
+      return 1;
+    } else if(period == '白班') {
+      return 2;
+    } else if(period == '小夜') {
+      return 3;
     }
   }
 
