@@ -71,7 +71,11 @@
       </div>
       <div class="mb-3 col-md-6">
         <label for="period" class="form-label">輸入時段:</label>
-        <input type="number" class="form-control" id="period1" />
+        <select class="form-label" id="period1" required>
+          <option value="2">白班</option>
+          <option value="3">小夜</option>
+          <option value="1">大夜</option>
+        </select>
       </div>
       <button type="button" class="btn btn-success" id="confirm-button">
         確認
@@ -286,7 +290,7 @@
       const formattedDate = parseInt(formatDateToInteger(date));
       amount = parseInt(amount);
       const convertedTime = convertTimeToHHMM(time);
-      period = parseInt(period);
+      period = turnPeriod(period);
 
       $.ajax({
         url: `http://${ip}//api/output/vomit`,
@@ -391,6 +395,16 @@
         return '白班';  // 8點到16點
     } else {
         return '小夜';  // 16點到24點
+    }
+  }
+
+  function turnPeriod(period) {
+    if(period == '大夜') {
+      return 1;
+    } else if(period == '白班') {
+      return 2;
+    } else if(period == '小夜') {
+      return 3;
     }
   }
 

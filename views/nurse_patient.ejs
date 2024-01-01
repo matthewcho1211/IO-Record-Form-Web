@@ -35,15 +35,17 @@
         </thead>
         <tbody id="data-table"></tbody>
       </table>
+      <!--
       <div
         class="container mt-4 d-flex align-items-center justify-content-center"
-      >
+      > 
         <button type="button" class="btn btn-success" id="add-data-button">
           查詢
         </button>
       </div>
-
+    -->
       <!-- 模态框 -->
+      <!--
       <div id="modal" class="modal">
         <div class="modal-content">
           <span class="close">&times;</span>
@@ -56,6 +58,7 @@
           </form>
         </div>
       </div>
+      -->
     </div>
   </body>
 </html>
@@ -132,7 +135,6 @@
           patient_name: patient_name,
         }),
         success: function (response) {
-          console.log(record_id, patient_name);
           window.location.href = "/nurse/select"; // 直接使用已知的URL进行重定向
         },
 

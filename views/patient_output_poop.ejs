@@ -246,7 +246,7 @@
       const formattedDate = parseInt(formatDateToInteger(date));
       amount = parseInt(amount);
       const convertedTime = convertTimeToHHMM(time);
-      period = parseInt(period);
+      period = turnPeriod(period);
       let property_id = parseInt(property);
       let color_id = parseInt(color);
 
@@ -353,6 +353,16 @@
         return '白班';  // 8點到16點
     } else {
         return '小夜';  // 16點到24點
+    }
+  }
+
+  function turnPeriod(period) {
+    if(period == '大夜') {
+      return 1;
+    } else if(period == '白班') {
+      return 2;
+    } else if(period == '小夜') {
+      return 3;
     }
   }
 
