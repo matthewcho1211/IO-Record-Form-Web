@@ -163,10 +163,11 @@
       //const record_id = $("#record_id1").val();
       let date = $("#date1").val();
       date = formatDateToInteger(date);
+      let period = $("#period1").val();
 
       // 发送Ajax请求
       $.ajax({
-        url: `http://${ip}/api/output/vomit/${date}/${record_id}`,
+        url: `http://${ip}/api/output/vomit/${date}/${record_id}/${period}`,
         method: "GET",
         dataType: "json",
         success: function (data) {
@@ -226,7 +227,8 @@
           // 更新頁面上的元素
         },
         error: function (error) {
-          console.error("Error fetching total:", error);
+          $("#total").text("共計: " + 0 + " 公克");
+          console.log("Error fetching total:", error);
         },
       });
     }

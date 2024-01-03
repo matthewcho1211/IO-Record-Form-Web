@@ -168,10 +168,11 @@
       //const record_id = $("#record_id1").val();
       let date = $("#date1").val();
       date = formatDateToInteger(date);
+      let period = $("#period1").val();
 
       // 发送Ajax请求
       $.ajax({
-        url: `http://${ip}/api/input/${date}/${record_id}`,
+        url: `http://${ip}/api/input/${date}/${record_id}/${period}`,
         method: "GET",
         dataType: "json",
         success: function (data) {
