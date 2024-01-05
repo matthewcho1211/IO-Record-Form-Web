@@ -49,7 +49,7 @@
   ![截圖 2024-01-02 下午2 54 51](https://github.com/musicboy0322/IO-Record-Form-Web/assets/75659334/467c62df-a564-4b9a-bd3f-daf5fc03edd3)
   
 * 技術：
-  * 網頁設計：HTML、CSS、JavaScript、Bootstrap
+  * 網頁設計：HTML、CSS、JavaScript
   * 前端框架：Bootstrap、jQuery
   * 後端框架：Node.js
 * Demo 影片：
